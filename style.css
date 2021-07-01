@@ -1,6 +1,7 @@
 * {
 	margin: 0;
 	padding: 0;
+  box-sizing: border-box;
 }
 
 body, html {
@@ -11,3 +12,18 @@ body, html {
 	cursor: crosshair;
     position: fixed;
 }
+.colorbar {
+  position: fixed;
+}
+
+.color {
+  display: inline-block;
+  height: 48px;
+  width: 48px;
+}
+
+.color.black { background-color: black; }
+.color.red { background-color: red; }
+.color.green { background-color: green; }
+.color.blue { background-color: blue; }
+.color.yellow { background-color: yellow; }
