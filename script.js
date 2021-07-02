@@ -7,7 +7,7 @@ window.onload = function() {
   let state = {
       'canvasX': 0,
       'canvasY': 0,
-      'color':'#0000FF',
+      'color':'#000000',
       'drawing': true,
       'erasing': false,
       'hasFocus': false,
@@ -31,13 +31,13 @@ window.onload = function() {
     // console.log(this.style.background-color);
     // state.color = this.style.background-color;
     // event.srcElement.
-    console.log($(this).css('background-color'));
     state.color = $(this).css('background-color');
   }); 
   
-  // click(function changeColor() {
-  //   context.strokeStyle = this.style.color;
-  // });
+  // Handle clear button click
+  $('#btnClear').on('click', function(){
+    context.clearRect(0, 0, myCanvas.width, myCanvas.height);
+  });
 
     // Mouse Event Handlers
 	if(myCanvas){

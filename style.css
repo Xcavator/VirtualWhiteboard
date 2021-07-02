@@ -12,14 +12,32 @@ body, html {
 	cursor: crosshair;
     position: fixed;
 }
+
+.toolbar {
+  display: block;
+}
+
 .colorbar {
-  position: fixed;
+  display: block;
+  position: relative;
 }
 
 .color {
   display: inline-block;
   height: 48px;
   width: 48px;
+}
+
+.funbar {
+  display: block;
+  position: relative;
+}
+.btnFun {
+  
+  display: block;
+  height: 20px;
+  width: 48px;
+  font-size: 10px;
 }
 
 .color.black { background-color: black; }
