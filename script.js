@@ -1,41 +1,70 @@
+
+
 window.onload = function() {
-	var myCanvas = document.getElementById("myCanvas");
-	var ctx = myCanvas.getContext("2d");
-    
+	let myCanvas = document.getElementById("myCanvas");
+	let context = myCanvas.getContext("2d");
+  
+  let state = {
+      'canvasX': 0,
+      'canvasY': 0,
+      'color':'#0000FF',
+      'drawing': true,
+      'erasing': false,
+      'hasFocus': false,
+      'interactive': false,
+      'isDown': false,
+      'eraserWidth': 25,
+      'lineWidth': 6
+  };
+
   // Fill Window Width and Height
   myCanvas.width = window.innerWidth;
 	myCanvas.height = window.innerHeight;
-	
 	// Set Background Color
-  ctx.fillStyle="#fff";
-  ctx.fillRect(0,0,myCanvas.width,myCanvas.height);
-	
+  context.fillStyle="#fff";
+  context.fillRect(0,0,myCanvas.width,myCanvas.height);
+  
+
+  $('button.color').on('click', function(){
+	// $('button.color').on('click', {this.style.background-color}, function(color){
+	// console.log(state.color);
+    // console.log(this.style.background-color);
+    // state.color = this.style.background-color;
+    // event.srcElement.
+    console.log($(this).css('background-color'));
+    state.color = $(this).css('background-color');
+  }); 
+  
+  // click(function changeColor() {
+  //   context.strokeStyle = this.style.color;
+  // });
+
     // Mouse Event Handlers
 	if(myCanvas){
 		var isDown = false;
 		var canvasX, canvasY;
-		ctx.lineWidth = 5;
+		context.lineWidth = state.lineWidth;
 		
 		$(myCanvas)
 		.mousedown(function(e){
 			isDown = true;
-			ctx.beginPath();
+			context.beginPath();
 			canvasX = e.pageX - myCanvas.offsetLeft;
 			canvasY = e.pageY - myCanvas.offsetTop;
-			ctx.moveTo(canvasX, canvasY);
+			context.moveTo(canvasX, canvasY);
 		})
 		.mousemove(function(e){
 			if(isDown !== false) {
 				canvasX = e.pageX - myCanvas.offsetLeft;
 				canvasY = e.pageY - myCanvas.offsetTop;
-				ctx.lineTo(canvasX, canvasY);
-				ctx.strokeStyle = "#000";
-				ctx.stroke();
+				context.lineTo(canvasX, canvasY);
+				context.strokeStyle = state.color;
+				context.stroke();
 			}
 		})
 		.mouseup(function(e){
 			isDown = false;
-			ctx.closePath();
+			context.closePath();
 		});
 	}
 	
@@ -44,8 +73,8 @@ window.onload = function() {
 		started: false,
 		start: function(evt) {
 
-			ctx.beginPath();
-			ctx.moveTo(
+			context.beginPath();
+			context.moveTo(
 				evt.touches[0].pageX,
 				evt.touches[0].pageY
 			);
@@ -56,14 +85,14 @@ window.onload = function() {
 		move: function(evt) {
 
 			if (this.started) {
-				ctx.lineTo(
+				context.lineTo(
 					evt.touches[0].pageX,
 					evt.touches[0].pageY
 				);
 
-				ctx.strokeStyle = "#000";
-				ctx.lineWidth = 5;
-				ctx.stroke();
+				context.strokeStyle = state.color;
+				context.lineWidth = state.lineWidth;
+				context.stroke();
 			}
 
 		},

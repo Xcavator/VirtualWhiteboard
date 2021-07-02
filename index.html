@@ -2,7 +2,7 @@
 <head>
 <meta charset="utf-8" />
 <title>HTML5 Canvas Drawing Board</title>
-<script type="text/JavaScript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js?ver=1.4.2"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="script.js"></script>
 <link rel="stylesheet" href="style.css">
 </head>
@@ -11,14 +11,15 @@
 	<canvas id="myCanvas">
 		Sorry, your browser does not support HTML5 canvas technology.
 	</canvas>
-
+  <div class="toolbar">
     <div class="colorbar">
-      <div class="color black"></div>
-      <div class="color red"></div>
-      <div class="color green"></div>
-      <div class="color blue"></div>
-      <div class="color yellow"></div>
+      <button class="color black"></button>
+      <button class="color red"></button>
+      <button class="color green"></button>
+      <button class="color blue"></button>
+      <button class="color yellow"></button>
     </div>
+  </div>
 
 </body>
 </html>
