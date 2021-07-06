@@ -1,4 +1,4 @@
-// TODO: Grid Save shapes
+// TODO: Save shapes
 
 window.onload = function() {
 	let myCanvas = document.getElementById("myCanvas");
@@ -22,18 +22,13 @@ window.onload = function() {
   myCanvas.width = window.innerWidth;
 	myCanvas.height = window.innerHeight;
 	// Set Background Color
-  context.fillStyle="#fff";
+  context.fillStyle="#ffffff";
   context.fillRect(0,0,myCanvas.width,myCanvas.height);
   
   $('#sizeVal').html(state.lineWidth);
   
 
   $('button.color').on('click', function(){
-	// $('button.color').on('click', {this.style.background-color}, function(color){
-	// console.log(state.color);
-    // console.log(this.style.background-color);
-    // state.color = this.style.background-color;
-    // event.srcElement.
     state.color = $(this).css('background-color');
   }); 
 
@@ -54,9 +49,20 @@ window.onload = function() {
   // Handle grid button click
   $('#btnGrid').on('click', function(){
     if(state.grid){
-
+      state.grid = false;
+      $("#myCanvas").css('background-image', "");
     } else{
+      
+      // myCanvas.style.backgroundImage = "url('images/grid.png')";
+			// myCanvas.style.backgroundRepeat = "repeat";
+			// whiteboard.style.borderStyle = "none";
+			// whiteboard.style.borderWidth = "none";
 
+      $("#myCanvas").css('background-image', "url('images/grid.png')");
+      $("#myCanvas").css('background-repeat', 'repeat');
+      // $("#myCanvas").css('background-size', 'cover');
+
+      state.grid = true;
     }
   });
 
