@@ -1,4 +1,4 @@
-
+// TODO: Grid Save shapes
 
 window.onload = function() {
 	let myCanvas = document.getElementById("myCanvas");
@@ -14,7 +14,8 @@ window.onload = function() {
       'interactive': false,
       'isDown': false,
       'eraserWidth': 25,
-      'lineWidth': 6
+      'lineWidth': 6,
+      'grid': false
   };
 
   // Fill Window Width and Height
@@ -23,6 +24,8 @@ window.onload = function() {
 	// Set Background Color
   context.fillStyle="#fff";
   context.fillRect(0,0,myCanvas.width,myCanvas.height);
+  
+  $('#sizeVal').html(state.lineWidth);
   
 
   $('button.color').on('click', function(){
@@ -33,10 +36,33 @@ window.onload = function() {
     // event.srcElement.
     state.color = $(this).css('background-color');
   }); 
+
+  $('#palette').on('input', function(){
+    state.color = $(this).val();
+  }); 
   
   // Handle clear button click
   $('#btnClear').on('click', function(){
     context.clearRect(0, 0, myCanvas.width, myCanvas.height);
+  });
+
+  // Handle Eraser button click
+  $('#btnEraser').on('click', function(){
+    state.color = context.fillStyle;
+  });
+
+  // Handle grid button click
+  $('#btnGrid').on('click', function(){
+    if(state.grid){
+
+    } else{
+
+    }
+  });
+
+  $('#sizeBar').on('input', function(){
+    state.lineWidth = $(this).val();
+    $('#sizeVal').html(state.lineWidth);
   });
 
     // Mouse Event Handlers
@@ -58,6 +84,7 @@ window.onload = function() {
 				canvasX = e.pageX - myCanvas.offsetLeft;
 				canvasY = e.pageY - myCanvas.offsetTop;
 				context.lineTo(canvasX, canvasY);
+				context.lineWidth = state.lineWidth;
 				context.strokeStyle = state.color;
 				context.stroke();
 			}

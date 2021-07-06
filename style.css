@@ -28,16 +28,41 @@ body, html {
   width: 48px;
 }
 
+#palette {
+  
+  height: 48px;
+  width: 48px;
+}
+
 .funbar {
   display: block;
   position: relative;
 }
 .btnFun {
   
-  display: block;
+  display: inline-block;
   height: 20px;
   width: 48px;
   font-size: 10px;
+}
+
+.slidecontainer {
+  display:block;
+  width: 100%;
+  height: 20px;
+}
+
+
+#sizeBar {
+  display: inline-block;
+  width: 80px;
+  height: 20px;
+}
+
+.slidecontainer span{
+  display: inline-block;
+  font-size: 15px;
+  text-align: center;
 }
 
 .color.black { background-color: black; }
