@@ -9,7 +9,6 @@ window.onload = function() {
       'color':'#000000',
       'drawing': true,
       'erasing': false,
-      'hasFocus': false,
       'shape': false,
       'isDown': false,
       'eraserWidth': 25,
@@ -92,17 +91,14 @@ window.onload = function() {
 
     // Mouse Event Handlers
 	if(myCanvas){
-		var isDown = false;
 		var canvasX, canvasY;
 		context.lineWidth = state.lineWidth;
 		
 		$(myCanvas)
 		.mousedown(function(e){
-			isDown = true;
+			state.isDown = true;
 			context.beginPath();
       if(state.shape === true){
-        // canvasX = e.clientX;
-        // canvasY = e.clientY;
         canvasX = e.pageX - myCanvas.offsetLeft;
         canvasY = e.pageY - myCanvas.offsetTop;
       } else{
@@ -113,7 +109,7 @@ window.onload = function() {
       }
 		})
 		.mousemove(function(e){
-			if(isDown !== false && state.shape !== true) {
+			if(state.isDown !== false && state.shape !== true) {
 				canvasX = e.pageX - myCanvas.offsetLeft;
 				canvasY = e.pageY - myCanvas.offsetTop;
 				context.lineTo(canvasX, canvasY);
@@ -123,12 +119,10 @@ window.onload = function() {
 			}
 		})
 		.mouseup(function(e){
-			isDown = false;
+			state.isDown = false;
       if(state.shape === true){
         let stX = canvasX;
         let stY = canvasY;
-        // canvasX = e.pageX;
-        // canvasY = e.pageY;
 				canvasX = e.pageX - myCanvas.offsetLeft;
 				canvasY = e.pageY - myCanvas.offsetTop;
 				context.lineWidth = state.lineWidth;
