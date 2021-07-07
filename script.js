@@ -1,4 +1,3 @@
-// TODO: Save shapes
 
 window.onload = function() {
 	let myCanvas = document.getElementById("myCanvas");
@@ -11,7 +10,7 @@ window.onload = function() {
       'drawing': true,
       'erasing': false,
       'hasFocus': false,
-      'interactive': false,
+      'shape': false,
       'isDown': false,
       'eraserWidth': 25,
       'lineWidth': 6,
@@ -23,7 +22,6 @@ window.onload = function() {
 	myCanvas.height = window.innerHeight;
 	// Set Background Color
   context.fillStyle="#ffffff";
-  // context.fillRect(0,0,myCanvas.width,myCanvas.height);
   
   $('#sizeVal').html(state.lineWidth);
   
@@ -44,8 +42,19 @@ window.onload = function() {
   // Handle Eraser button click
   $('#btnEraser').on('click', function(){
     state.color = context.fillStyle;
+    state.shape = false;
   });
+
+  // Handle Eraser button click
+  $('#btnBrush').on('click', function(){
+    state.shape = false;
+  });  
   
+  // Handle Eraser button click
+  $('#btnSquare').on('click', function(){
+    state.shape = true;
+  });
+
   // Handle Eraser button click
   $('#btnSave').on('click', function(){
     let image = myCanvas.toDataURL('images/png');  
@@ -68,15 +77,9 @@ window.onload = function() {
       state.grid = false;
       $("#myCanvas").css('background-image', "");
     } else{
-      
-      // myCanvas.style.backgroundImage = "url('images/grid.png')";
-			// myCanvas.style.backgroundRepeat = "repeat";
-			// whiteboard.style.borderStyle = "none";
-			// whiteboard.style.borderWidth = "none";
 
       $("#myCanvas").css('background-image', "url('images/grid.png')");
       $("#myCanvas").css('background-repeat', 'repeat');
-      // $("#myCanvas").css('background-size', 'cover');
 
       state.grid = true;
     }
@@ -97,12 +100,20 @@ window.onload = function() {
 		.mousedown(function(e){
 			isDown = true;
 			context.beginPath();
-			canvasX = e.pageX - myCanvas.offsetLeft;
-			canvasY = e.pageY - myCanvas.offsetTop;
-			context.moveTo(canvasX, canvasY);
+      if(state.shape === true){
+        // canvasX = e.clientX;
+        // canvasY = e.clientY;
+        canvasX = e.pageX - myCanvas.offsetLeft;
+        canvasY = e.pageY - myCanvas.offsetTop;
+      } else{
+        canvasX = e.pageX - myCanvas.offsetLeft;
+        canvasY = e.pageY - myCanvas.offsetTop;
+        context.moveTo(canvasX, canvasY);
+
+      }
 		})
 		.mousemove(function(e){
-			if(isDown !== false) {
+			if(isDown !== false && state.shape !== true) {
 				canvasX = e.pageX - myCanvas.offsetLeft;
 				canvasY = e.pageY - myCanvas.offsetTop;
 				context.lineTo(canvasX, canvasY);
@@ -113,6 +124,18 @@ window.onload = function() {
 		})
 		.mouseup(function(e){
 			isDown = false;
+      if(state.shape === true){
+        let stX = canvasX;
+        let stY = canvasY;
+        // canvasX = e.pageX;
+        // canvasY = e.pageY;
+				canvasX = e.pageX - myCanvas.offsetLeft;
+				canvasY = e.pageY - myCanvas.offsetTop;
+				context.lineWidth = state.lineWidth;
+				context.strokeStyle = state.color;
+        context.rect(stX, stY, canvasX -stX, canvasY - stY);
+				context.stroke();
+      }
 			context.closePath();
 		});
 	}
