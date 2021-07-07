@@ -23,7 +23,7 @@ window.onload = function() {
 	myCanvas.height = window.innerHeight;
 	// Set Background Color
   context.fillStyle="#ffffff";
-  context.fillRect(0,0,myCanvas.width,myCanvas.height);
+  // context.fillRect(0,0,myCanvas.width,myCanvas.height);
   
   $('#sizeVal').html(state.lineWidth);
   
@@ -44,6 +44,22 @@ window.onload = function() {
   // Handle Eraser button click
   $('#btnEraser').on('click', function(){
     state.color = context.fillStyle;
+  });
+  
+  // Handle Eraser button click
+  $('#btnSave').on('click', function(){
+    let image = myCanvas.toDataURL('images/png');  
+   
+  
+    // create temporary link  
+    let tmpLink = document.createElement( 'a' );  
+    tmpLink.download = 'MyImage.png'; 
+    tmpLink.href = image;  
+   console.log(tmpLink.download);
+    // temporarily add link to body and initiate the download  
+    document.body.appendChild(tmpLink);  
+    tmpLink.click();  
+    document.body.removeChild(tmpLink);  
   });
 
   // Handle grid button click
